@@ -61,6 +61,17 @@ document.addEventListener("DOMContentLoaded", function () {
           .map((runningNumber) => runningNumber.number)
           .flat(),
       ];
+
+      if (inputNumber === "") {
+        return Swal.fire({
+          icon: "error",
+          title: "เกิดข้อผิดพลาด",
+          text: "กรุณากรอกเลขที่ต้องการตรวจสอบ",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "ตกลง",
+        });
+      }
+
       let isWinningNumber = false;
 
       for (let i = 0; i < prizeNumbers.length; i++) {
@@ -71,12 +82,11 @@ document.addEventListener("DOMContentLoaded", function () {
       }
       if (isWinningNumber) {
         Swal.fire({
-          //   iconHtml:
-          //     '<lottie-player src="https://lottie.host/cb1c67b4-00bd-48fd-b63f-5c59d432718b/8SrFUu6xvC.json" speed="1" style="width: 300px; height: 300px; direction="1" loop autoplay></lottie-player>',
-          //   customClass: {
-          //     icon: "no-border",
-          //   },
-          icon: "success",
+          iconHtml:
+            '<lottie-player src="https://lottie.host/cb1c67b4-00bd-48fd-b63f-5c59d432718b/8SrFUu6xvC.json" speed="1" style="width: 300px; height: 300px; direction="1" mode="normal" loop autoplay></lottie-player>',
+          customClass: {
+            icon: "border-none",
+          },
           title: "ยินดีด้วยคุณถูกรางวัล!",
           text: `เลข ${inputNumber} ของคุณถูกรางวัล`,
           confirmButtonColor: "#3085d6",
@@ -84,12 +94,15 @@ document.addEventListener("DOMContentLoaded", function () {
         });
       } else {
         Swal.fire({
+          iconHtml:
+            '<lottie-player src="https://lottie.host/d5df2619-56d7-4bee-b17f-22effa289d64/QS8gJMVEKI.json" speed="1" style="width: 125px; height: 125px" direction="1" mode="normal" loop autoplay></lottie-player>',
+          customClass: {
+            icon: "border-none",
+          },
           title: "เสียใจด้วยคุณไม่ถูกรางวัล!",
           text: `เลข ${inputNumber} ของคุณไม่ถูกรางวัล`,
-          icon: "error",
-          //   iconHtml:
-          //     '<lottie-player src="https://lottie.host/8f4a1c8b-9d7c-4a1d-9a6f-9e9e9c4e7a3b/8SrFUu6xvC.json" speed="1" style="width: 300px; height: 300px; background: transparent" direction="1" loop autoplay></lottie-player>',
-          showConfirmButton: true,
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "ตกลง",
         });
       }
     });
