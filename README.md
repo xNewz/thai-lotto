@@ -12,3 +12,7 @@ This is a simple program to check Thai Lottory result. It calls the API from [Th
 
 ## Screenshot
 ![Alt text](image.png)
+
+## Tools
+- [Thai Lottory API](https://lotto.api.rayriffy.com/latest)
+- [Tailwind CSS](https://tailwindcss.com/)
