@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lotto Data</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body
+    class="bg-gradient-to-b from-purple-300 to-purple-600 min-h-screen flex items-center justify-center font-kanit"
+  >
+    <div class="container mx-auto p-8 bg-white rounded-md shadow-lg">
+      <h1 class="text-3xl font-bold mb-4 text-purple-600">
+        ผลการออกรางวัลสลากกินแบ่งรัฐบาล
+      </h1>
+      <h2 id="date-text" class="text-lg font-semibold mb-6">Loading...</h2>
+      <div class="grid gap-4 grid-cols-2 sm:grid-cols-4">
+        <!-- Data will be displayed here -->
+        <div class="award1">
+          <h2 class="text-lg font-semibold mb-2">รางวัลที่ 1</h2>
+          <div class="bg-gray-100 p-2 rounded">
+            <p class="font-medium" id="prize1-number">Loading...</p>
+          </div>
+        </div>
+        <div class="award2">
+          <h2 class="text-lg font-semibold mb-2">รางวัลเลขหน้า 3 ตัว</h2>
+          <div class="bg-gray-100 p-2 rounded">
+            <p class="font-medium" id="prize2-number">Loading...</p>
+          </div>
+        </div>
+        <div class="award3">
+          <h2 class="text-lg font-semibold mb-2">รางวัลเลขท้าย 3 ตัว</h2>
+          <div class="bg-gray-100 p-2 rounded">
+            <p class="font-medium" id="prize3-number">Loading...</p>
+          </div>
+        </div>
+        <div class="award4">
+          <h2 class="text-lg font-semibold mb-2">รางวัลเลขท้าย 2 ตัว</h2>
+          <div class="bg-gray-100 p-2 rounded">
+            <p class="font-medium" id="prize4-number">Loading...</p>
+          </div>
+        </div>
+      </div>
+      <!-- Number input and check button -->
+      <div class="mt-8">
+        <input
+          type="text"
+          id="input-number"
+          class="border border-gray-400 rounded-md p-2 mr-4"
+          placeholder="กรอกเลขที่ต้องการตรวจ"
+        />
+        <button
+          type="button"
+          class="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700"
+          id="check-button"
+        >
+          ตรวจสอบ
+        </button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  </body>
+</html>
