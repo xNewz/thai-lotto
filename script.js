@@ -50,52 +50,64 @@ document.addEventListener("DOMContentLoaded", function () {
       data.response.runningNumbers[2].number.join(", ");
   }
 
+  // Function to validate the input number
+  function validateInputNumber(inputNumber) {
+    return /^\d{6}$/.test(inputNumber);
+  }
+
   // Function to check if the input number is a winning number
   function checkWinningNumber(data) {
-    // add event lisnter to the button id check-button
+    // Add event listener to the button with the ID check-button
     document.getElementById("check-button").addEventListener("click", () => {
       const inputNumber = document.getElementById("input-number").value;
-      const prizeNumbers = [
-        ...data.response.prizes.map((prize) => prize.number).flat(),
-        ...data.response.runningNumbers
-          .map((runningNumber) => runningNumber.number)
-          .flat(),
-      ];
 
-      if (inputNumber === "") {
+      if (!validateInputNumber(inputNumber)) {
         return Swal.fire({
           icon: "error",
           title: "เกิดข้อผิดพลาด",
-          text: "กรุณากรอกเลขที่ต้องการตรวจสอบ",
+          text: "กรุณากรอกเลข 6 หลักที่ต้องการตรวจสอบ",
           confirmButtonColor: "#3085d6",
           confirmButtonText: "ตกลง",
         });
       }
 
-      let isWinningNumber = false;
+      const prizeNumbers = [];
 
-      for (let i = 0; i < prizeNumbers.length; i++) {
-        if (inputNumber === prizeNumbers[i]) {
-          isWinningNumber = true;
-          break;
-        }
+      for (let i = 0; i < 6; i++) {
+        prizeNumbers.push(...data.response.prizes[i].number);
       }
+
+      prizeNumbers.push(
+        ...data.response.runningNumbers[0].number,
+        ...data.response.runningNumbers[1].number,
+        ...data.response.runningNumbers[2].number
+      );
+
+      // Check if the input number is a winning number
+      const isWinningNumber = prizeNumbers.some(
+        (prizeNumber) =>
+          prizeNumber === inputNumber ||
+          prizeNumber === inputNumber.substr(0, 3) ||
+          prizeNumber === inputNumber.substr(3, 3) ||
+          prizeNumber === inputNumber.substr(4, 2)
+      );
+
       if (isWinningNumber) {
         Swal.fire({
           iconHtml:
-            '<lottie-player src="https://lottie.host/cb1c67b4-00bd-48fd-b63f-5c59d432718b/8SrFUu6xvC.json" speed="1" style="width: 300px; height: 300px; direction="1" mode="normal" loop autoplay></lottie-player>',
+            '<lottie-player src="https://lottie.host/cb1c67b4-00bd-48fd-b63f-5c59d432718b/8SrFUu6xvC.json" speed="1" style="width: 300px; height: 300px;" direction="1" mode="normal" loop autoplay></lottie-player>',
           customClass: {
             icon: "border-none",
           },
           title: "ยินดีด้วยคุณถูกรางวัล!",
-          text: `เลข ${inputNumber} ของคุณถูกรางวัล`,
+          text: `เลข ${inputNumber} ของคุณ ถูกรางวัล`,
           confirmButtonColor: "#3085d6",
           confirmButtonText: "ตกลง",
         });
       } else {
         Swal.fire({
           iconHtml:
-            '<lottie-player src="https://lottie.host/d5df2619-56d7-4bee-b17f-22effa289d64/QS8gJMVEKI.json" speed="1" style="width: 125px; height: 125px" direction="1" mode="normal" loop autoplay></lottie-player>',
+            '<lottie-player src="https://lottie.host/d5df2619-56d7-4bee-b17f-22effa289d64/QS8gJMVEKI.json" speed="1" style="width: 125px; height: 125px;" direction="1" mode="normal" loop autoplay></lottie-player>',
           customClass: {
             icon: "border-none",
           },
