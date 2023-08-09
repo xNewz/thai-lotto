@@ -92,7 +92,41 @@ document.addEventListener("DOMContentLoaded", function () {
           prizeNumber === inputNumber.substr(4, 2)
       );
 
-      if (isWinningNumber) {
+      // Find the prize names associated with the winning number
+      const wonPrizes = [];
+
+      for (let i = 0; i < 6; i++) {
+        if (data.response.prizes[i].number.includes(inputNumber)) {
+          wonPrizes.push(data.response.prizes[i].name);
+        }
+      }
+
+      if (
+        data.response.runningNumbers[0].number.includes(
+          inputNumber.substr(0, 3)
+        )
+      ) {
+        wonPrizes.push(data.response.runningNumbers[0].name);
+      }
+
+      if (
+        data.response.runningNumbers[1].number.includes(
+          inputNumber.substr(3, 3)
+        )
+      ) {
+        wonPrizes.push(data.response.runningNumbers[1].name);
+      }
+
+      if (
+        data.response.runningNumbers[2].number.includes(
+          inputNumber.substr(4, 2)
+        )
+      ) {
+        wonPrizes.push(data.response.runningNumbers[2].name);
+      }
+
+      if (wonPrizes.length > 0) {
+        const prizeText = `${wonPrizes.join(" และ")}`;
         Swal.fire({
           iconHtml:
             '<lottie-player src="https://lottie.host/cb1c67b4-00bd-48fd-b63f-5c59d432718b/8SrFUu6xvC.json" speed="1" style="width: 300px; height: 300px;" direction="1" mode="normal" loop autoplay></lottie-player>',
@@ -100,7 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
             icon: "border-none",
           },
           title: "ยินดีด้วยคุณถูกรางวัล!",
-          text: `เลข ${inputNumber} ของคุณ ถูกรางวัล`,
+          text: `เลข ${inputNumber} ของคุณ ถูก${prizeText}`,
           confirmButtonColor: "#3085d6",
           confirmButtonText: "ตกลง",
         });
