@@ -1,34 +1,33 @@
-document.addEventListener("DOMContentLoaded", function () {
+$(document).ready(function () {
   // Function to fetch data from the API
   function fetchDataFromApi() {
-    fetch("https://lotto.api.rayriffy.com/latest")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
+    $.ajax({
+      url: "https://lotto.api.rayriffy.com/latest",
+      dataType: "json",
+    })
+      .done(function (data) {
         // Check the winning number
         checkWinningNumber(data);
 
         // Display the data on the HTML page
         displayData(data);
       })
-      .catch((error) => console.error("Error fetching data:", error));
+      .fail(function (error) {
+        console.error("Error fetching data:", error);
+      });
   }
 
   // Function to display the data on the HTML page
   function displayData(data) {
-    const dateContainer = document.getElementById("date-text");
-    const prize1Number = document.getElementById("prize1-number");
-    const prize2Number = document.getElementById("prize2-number");
-    const prize3Number = document.getElementById("prize3-number");
-    const prize4Number = document.getElementById("prize4-number");
+    const dateContainer = $("#date-text");
+    const prize1Number = $("#prize1-number");
+    const prize2Number = $("#prize2-number");
+    const prize3Number = $("#prize3-number");
+    const prize4Number = $("#prize4-number");
 
     // Check if the API response contains the required fields
     if (!data.response || !data.response.date || !data.response.prizes) {
-      dateContainer.textContent = "Error: Data format is incorrect.";
+      dateContainer.text("Error: Data format is incorrect.");
       return;
     }
 
@@ -37,17 +36,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const formattedDate = `${dateParts[0]} ${dateParts[1]} ${dateParts[2]}`;
 
     // Display the date and prizes information
-    dateContainer.textContent = `งวดประจำวันที่ ${formattedDate}`;
+    dateContainer.text(`งวดประจำวันที่ ${formattedDate}`);
 
     // Display prizes information
     const prizes = data.response.prizes;
-    prize1Number.textContent = prizes[0].number.join(", ");
-    prize2Number.textContent =
-      data.response.runningNumbers[0].number.join(", ");
-    prize3Number.textContent =
-      data.response.runningNumbers[1].number.join(", ");
-    prize4Number.textContent =
-      data.response.runningNumbers[2].number.join(", ");
+    prize1Number.text(prizes[0].number.join(", "));
+    prize2Number.text(data.response.runningNumbers[0].number.join(", "));
+    prize3Number.text(data.response.runningNumbers[1].number.join(", "));
+    prize4Number.text(data.response.runningNumbers[2].number.join(", "));
   }
 
   // Function to validate the input number
@@ -58,8 +54,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // Function to check if the input number is a winning number
   function checkWinningNumber(data) {
     // Add event listener to the button with the ID check-button
-    document.getElementById("check-button").addEventListener("click", () => {
-      const inputNumber = document.getElementById("input-number").value;
+    $("#check-button").on("click", function () {
+      const inputNumber = $("#input-number").val();
 
       if (!validateInputNumber(inputNumber)) {
         return Swal.fire({
