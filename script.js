@@ -79,15 +79,6 @@ $(document).ready(function () {
         ...data.response.runningNumbers[2].number
       );
 
-      // Check if the input number is a winning number
-      const isWinningNumber = prizeNumbers.some(
-        (prizeNumber) =>
-          prizeNumber === inputNumber ||
-          prizeNumber === inputNumber.substr(0, 3) ||
-          prizeNumber === inputNumber.substr(3, 3) ||
-          prizeNumber === inputNumber.substr(4, 2)
-      );
-
       // Find the prize names associated with the winning number
       const wonPrizes = [];
 
