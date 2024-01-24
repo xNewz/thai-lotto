@@ -2,7 +2,7 @@ $(document).ready(function () {
   // Function to fetch data from the API
   function fetchDataFromApi() {
     $.ajax({
-      url: "https://lotto.api.rayriffy.com/latest",
+      url: "https://api.xnewz.site/latest",
       dataType: "json",
     })
       .done(function (data) {
